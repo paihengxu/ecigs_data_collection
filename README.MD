@@ -75,7 +75,7 @@ such as `maxpropdropped`, `embeddingdim` accordingly.
 ### Training relevance classifier
 We provide the [Smokeng dataset](pipelines/ecigs/smokeng/smokeng_tobacco_relevance.json.gz) 
 and the [script](pipelines/ecigs/smokeng/tobacco_relevance_trainer.sh) to train the relevance classifier.
-The details for training classifier with Falconet can be found [here](README.Falconet.MD/#Training Models). 
+The details for training classifier with Falconet can be found [here](README.Falconet.MD#training-models). 
  
 ## Reddit
 Reddit pipeline contains subreddit filtering, keywords filtering, and geolocation inference.
