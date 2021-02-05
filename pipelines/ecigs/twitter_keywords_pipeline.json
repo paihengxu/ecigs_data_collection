@@ -1,0 +1,26 @@
+{
+    "name": "twitter_keywords",
+    "pipeline": [
+        "tokenizer",
+        {
+            "model": "keywords",
+            "args": {
+                "label": "e-cigs",
+                "filename": "ENDS_refined.keywords",
+                "skip_misses": true
+            }
+        },
+        "carmen"
+    ],
+    "counter": {
+        "labels": [
+            "location-state"
+        ],
+        "aggregations": [
+            "timestamp,location-state"
+        ],
+        "period": "month",
+        "timezone": "UTC"
+    },
+    "writer-style": "full"
+}

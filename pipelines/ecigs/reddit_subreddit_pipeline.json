@@ -1,0 +1,22 @@
+{
+    "name": "subreddit",
+    "pipeline": [
+        {
+            "model": "subreddit",
+            "args": {
+                "kw_path": "e-cigs.txt"
+            }
+        }
+    ],
+    "counter": {
+        "labels": [
+            "subreddit"
+        ],
+        "aggregations": [
+            "timestamp,subreddit"
+        ],
+        "period": "month",
+        "timezone": "UTC"
+    },
+    "writer-style": "full"
+}

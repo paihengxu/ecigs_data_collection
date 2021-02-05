@@ -1,0 +1,21 @@
+# Local Settings for Ecigs Data Processing
+# Fill in the settings file before running the pipelines
+
+import os
+
+# The path to the root of the repository
+ROOT =
+
+# Path to raw retrieved data
+TWITTER_RAW_DATA_DIR =
+REDDIT_COMMENT_RAW_DATA_DIR =
+REDDIT_SUBMISSION_RAW_DATA_DIR =
+
+# Path to store the processed data through ecigs pipeline
+TWITTER_PROCESSED_DATA_DIR =
+REDDIT_PROCESSED_DATA_DIR =
+
+# Path to Reddit geo inference repo
+SMGEO_DIR =
+SMGEO_OUT_DIR = os.path.join(REDDIT_PROCESSED_DATA_DIR, 'output_reddit_smgeo')
+SMGEO_VIRTUAL_ENV =

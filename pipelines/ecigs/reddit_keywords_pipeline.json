@@ -1,0 +1,25 @@
+{
+    "name": "reddit_keywords",
+    "pipeline": [
+        "tokenizer",
+        {
+            "model": "keywords",
+            "args": {
+                "label": "e-cigs",
+                "filename": "ENDS_refined.keywords",
+                "skip_misses": true
+            }
+        }
+    ],
+    "counter": {
+        "labels": [
+            "subreddit"
+        ],
+        "aggregations": [
+            "timestamp,subreddit"
+        ],
+        "period": "month",
+        "timezone": "UTC"
+    },
+    "writer-style": "full"
+}

@@ -1,0 +1,13 @@
+ujson>=1.35
+carmen>=0.0.3
+geopy>=1.11.0
+langid
+pandas
+python-dateutil
+pytz>=2016.10
+numpy>=1.11.3
+scipy>=0.18.1
+scikit-learn>=0.18.1
+requests_oauthlib>=0.6.2
+emoji>=0.5.4
+flashtext

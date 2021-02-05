@@ -1,0 +1,9 @@
+# Local Settings
+# Fill in the settings file when installing Falconet
+
+import os
+
+# The path to the root of the repository
+ROOT =
+FALCONET_HOME = os.path.join(ROOT, 'python/falconet')
+MODELS_PATH = os.path.join(ROOT, 'models')
