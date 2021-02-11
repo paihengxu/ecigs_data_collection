@@ -33,19 +33,9 @@ To keep track of the annotations, the pipeline also output csv files with raw co
 Additionally, there is another csv file that counts the mentioning times of each keywords per day for Tweets classified as relevant,
 in the `{TWITTER_PROCESSED_DATA_DIR}/twitter/output_twitter_relevance/keywords_count/` directory. 
 
-To help extract information from the output csv files, we provide following scripts and commands to run the scripts (in `pipelines/ecigs`).
+To help extract information from the output csv files, we provide the instructions for relevant scripts [here](pipelines/ecigs/README.MD#twitter-aggregation-scripts) (in `pipelines/ecigs`).
 These scripts aggregate all csv files in each directory, so it also works when the job is split.
 
-- `python aggregate_carmen.py`: generates the following csv files for *counts of posts* in the Tweets collection with keywords or classified as relevant. 
-`{step}` could be `keywords` or `relevant`.
-    - `twitter_{step}_country.csv`: counts for `us`, `non-us`, and `UNK` (unknown).
-    - `twitter_{step}_state.csv`: counts over U.S. states.
-    - `twitter_{step}_month.csv`: counts over month.
-    - `twitter_relevant_us_month.csv`: counts in U.S. over month.
-    - `twitter_relevant.csv`: counts for relevant and irrelevant Tweets.
-- `python aggregate_counter.py twitter`: generates the following csv files for *counts of keywords mentioning* in the collection of relevant Tweets.
-    - `twitter_relevant_keywords_counts.csv`: counts for each keywords.
-    - `twitter_relevant_keywords_month.csv`: counts over month.
  
 ### Keywords lists
 1. [Bigger keyword list](python/falconet/resources/annotators/keywords/ENDS.keywords):
@@ -95,7 +85,7 @@ where
 First, follow the instructions from [smgeo](https://github.com/kharrigian/smgeo) to set up the virtual environment and models.
 The relevant paths should be consistent with the ones you set up in `pipelines/ecigs/config.py`.
 
-Then run `python run_reddit_geo.py` to infer the geolocation information of users who has posted comments or submissions 
+Then run `python run_reddit_geo.py` (in `pipelines/ecigs`) to infer the geolocation information of users who has posted comments or submissions 
 with ecigs keywords in relevant subreddits.
 A list of Reddit user can be found at `{REDDIT_PROCESSED_DATA_DIR}/reddit_authors.txt`.
 The inferred geolocation information is at `{SMGEO_OUT_FN}`.
@@ -110,39 +100,10 @@ Similar to Twitter, there are also csv files with raw counts of posts in the fol
 
 where `{reddit_type}` is `submission` or `comment`.
 
-To associate users' geolocation information with Reddit posts (submissions or comments), 
-run the following command to count the number of posts with geolocation information or in United States.
+Similar to the Twitter pipeline, we provide the instructions for relevant scripts 
+[here](pipelines/ecigs/README.MD#reddit-aggregation-scripts) (in `pipelines/ecigs`)
+to produce aggregated summaries of output counting csv files.
 
-`python count_reddit_geo.py --fn {input_fn} --outfn {output}`
-
-where
-
-- `{input_fn}`: Keyword filtered data file path, `.gz` files in `{REDDIT_PROCESSED_DATA_DIR}/reddit/reddit_{reddit_type}/output_reddit_keywords/`.
-- `{output}`: output file name, in `.csv` format. 
-
-The output files will be in the same directory as `{input_fn}`, and create the following two subdirectories:
-
-- Count of posts with geolocation information will be in `geo_count_month`,
-- Counts of posts in U.S. will be in `us_count_month`.
-
-The scripts and commands to run the scripts (in `pipelines/ecigs`) for produce aggregated summaries are as follows:
-
-- `python aggregate_counter.py reddit`:
-    - Step 1: subreddit filtering:
-        - `reddit_{reddit_type}_subreddit.csv`: counts # of posts in each subreddit.
-        - `reddit_{reddit_type}_subreddit_month.csv`: counts # of posts over month.
-    - Step 2: keywords filtering:
-        - `reddit_{reddit_type}_keywords_subreddit.csv`: counts # of posts in each subreddit.
-        - `reddit_{reddit_type}_keywords_month.csv`: counts # of posts over month.
-        - `reddit_keywords_counts.csv`: counts # of keyword mentioning times for each keyword.
-        - `reddit_keywords_counts_month.csv`: counts # of keyword mentioning times over month.
-- Step 3: Geolocation inference:
-    - `python aggregate_smgeo.py`:
-        - `reddit_geo_country_count.csv`: counts # of Reddit users from different countries.
-        - `reddit_geo_state_count.csv`: counts # of Reddit users from different U.S. states.
-    - `python aggregate_us_month.py`:
-        - `reddit_{reddit_type}_keywords_geo_month.csv`: counts # of Reddit posts whose authors have geolocation inferred over month.
-        - `reddit_{reddit_type}_keywords_us_month.csv`: counts # of Reddit posts whose authors are in U.S. over month.
   
 ### Subreddits list
 A full list of relevant subreddits is [here](python/falconet/resources/annotators/subreddits/tobacco/e-cigs.txt).
