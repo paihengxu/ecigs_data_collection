@@ -2,7 +2,7 @@
 This readme contains the steps for collecting E-cigarettes related posts from Twitter and Reddit.
 The pipelines are based on [Falconet](README.Falconet.MD).
 
-![Twitter](twitter.png) ![Reddit](reddit.png)
+![Twitter](figures/twitter.png) ![Reddit](figures/reddit.png)
 
 ## Installing
 
@@ -14,7 +14,7 @@ The pipelines are based on [Falconet](README.Falconet.MD).
  
 ## Twitter
 Twitter pipeline contains keywords filtering, relevance classifier, and geolocation inference. 
-Run the following command in the `pipelines/ecigs/` directory.
+For the whole Twitter pipeline, run the following command in the `pipelines/ecigs/` directory.
 
 `python run_twitter_pipeline.py --input {input_fn}` 
 

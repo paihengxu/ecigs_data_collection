@@ -1,4 +1,4 @@
-# Falconet 2.0 ![Falconet](falconet.png)
+# Falconet 2.0 ![Falconet](figures/falconet.png)
 
 
 Falconet is a framework for building and deploying custom data processing pipelines to transform a stream of incoming social media data into meaningful and insightful analytics. 
@@ -9,7 +9,7 @@ Falconet is a framework for building and deploying custom data processing pipeli
 - Supports machine learning deployments
 - Currently supports the following data sources
 
-![Twitter](twitter.png) ![Reddit](reddit.png)
+![Twitter](figures/twitter.png) ![Reddit](figures/reddit.png)
 
 ## Installing and Running
 
@@ -22,16 +22,17 @@ Falconet is a framework for building and deploying custom data processing pipeli
 	
 | Argument  | Description ||
 |--|--|--|
-| \-\-input | Path to the data to be processed (file or folder) | the path can be either a json plain file or compressed file with gzip or bz2. If a folder is passed the system iterates trough the respective files  |
-| \-\-output_folder | Processed data and statistics will be stored in this folder |
-| \-\-pipeline_conf |Path to a pipeline config file  || 
-| \-\-message_type | Type of message (source) | choices = ['twitter','reddit_comment', 'reddit_submission'\] | 
+| INPUT | Path to the data to be processed (file or folder) | the path can be either a json plain file or compressed file with gzip or bz2. If a folder is passed the system iterates trough the respective files  |
+| \-\-output-folder | Processed data and statistics will be stored in this folder |
+| \-\-output-prefix | Prefix of output file name |
+| \-\-pipeline-conf | Path to a pipeline config file  || 
+| \-\-message-type | Type of message (source) | choices = ['twitter','reddit_comment', 'reddit_submission'\] | 
 
 **Optional Arguments:**
 
 | Argument | Description ||
 |--|--|--|
-| \-\-max_messages | Process this many messages and stop ||
+| \-\-max-messages | Process this many messages and stop ||
 
 **Example:**
 
@@ -43,7 +44,7 @@ Here are few examples of pipelines: [ecigs](pipelines/ecigs/).
 
 Falconet supports the deployment of custom analytics pipelines for social media data. The data can come from a single text file, a compressed archive or a folder (reading directly from databases and web APIs coming soon). A pipeline consists of a set of _annotators_ to process a stream of social media contents, infer relevant properties and produce analytics. 
 
-![Falconet](falconet_diagram.png)
+![Falconet](figures/falconet_diagram.png)
 
 Messages represented as json objects, e.g. 
 
@@ -105,9 +106,9 @@ timestamp,location-state,demographer-gender
 
 These resulting files can be readily plotted, e.g.
 
-![example plots](plots.png)
+![example plots](figures/plots.png)
 
-or be further processed to generate other indicators. Here is an [example](notebooks/ecig_notebook.ipynb) of a jupyter notebook with analytics generated from the output of a pipeline.
+or be further processed to generate other indicators. Here is an [example](python/notebooks/ecig_notebook.ipynb) of a jupyter notebook with analytics generated from the output of a pipeline.
 
 ### Architecture 
 

@@ -1,0 +1,2 @@
+Defines interfaces and provides implementations for Annotators that leverage NLP methods to infer properties of the data.
+You could add [external models](../../../README.Falconet.MD#external-models) as an `Annotator` object.

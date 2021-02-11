@@ -1,0 +1,1 @@
+Pipeline scripts. Instruction for creating a new pipeline [here](../README.Falconet.MD#creating-a-new-pipeline).

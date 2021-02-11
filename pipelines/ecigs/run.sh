@@ -9,4 +9,4 @@ cd ${ROOT}/python
 INPUT=${1}
 
 SOURCE=${MESSAGE_TYPE}
-python -m falconet.cli.run $INPUT --pipeline_conf $PIPELINE --output_folder $OUTPUT --output_prefix ${MESSAGE_TYPE} --message_type $SOURCE # --max_messages 1000
+python -m falconet.cli.run $INPUT --pipeline-conf $PIPELINE --output-folder $OUTPUT --output-prefix ${MESSAGE_TYPE} --message-type $SOURCE # --max-messages 1000

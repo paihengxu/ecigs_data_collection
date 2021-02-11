@@ -18,15 +18,15 @@ def command_line_parser():
     parser = ArgumentParser(description='Falconet pipeline')
     parser.add_argument('INPUT',  nargs='+',
                         help='One or multiple paths to the data or more to be processed (file or folder)')
-    parser.add_argument('--output_prefix', required=True, 
+    parser.add_argument('--output-prefix', required=True,
                         help='Prefix of output file name')
-    parser.add_argument('--output_folder', required=True,
+    parser.add_argument('--output-folder', required=True,
                         help='Processed data and statistics will be stored in this folder')
-    parser.add_argument('--pipeline_conf', type=str, required=True, 
+    parser.add_argument('--pipeline-conf', type=str, required=True,
                         help='Path to a pipeline config file.')
-    parser.add_argument('--message_type', choices=['twitter', 'reddit_comment', 'reddit_submission'],
+    parser.add_argument('--message-type', choices=['twitter', 'reddit_comment', 'reddit_submission'],
                         required=True, help='Message type')    
-    parser.add_argument('--max_messages', type=int, help='Process this many messages and stop')
+    parser.add_argument('--max-messages', type=int, help='Process this many messages and stop')
     parser.add_argument('--ignore-previous-annotations', action='store_true',
                         help='if specified, do NOT add to an existing dict of annotations')
 
