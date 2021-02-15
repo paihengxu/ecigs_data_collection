@@ -49,13 +49,7 @@ The conservative keyword list is used in the pipeline.
  
 ### Different relevance classifier threshold
 We provide multiple relevance classifiers with different thresholds for dropping low confidence examples, located in `models`.
-The performances for each best model on the test set are as follow.
-
-| Drop percentage | Accuracy | F1 score |
-|:---------------:|:--------:|:--------:|
-|        0%       |    87%   |   0.85   |
-|       25%       |    95%   |   0.94   |
-|       50%       |    98%   |   0.98   |
+The performances for each best model on the test set are listed [here](models/README.MD).
 
 The default model is `models/smokeng_tobacco_relevance_DEP-relevance_DROPPED-0.25_NGRAM-(1,2)_BETA-0.5_EMB-50.pickle`,
 as specified in `pipelines/ecigs/twitter_relevance_pipeline.json`. 
