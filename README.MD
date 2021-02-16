@@ -1,5 +1,5 @@
 # E-cigarettes Data Collection for Twitter and Reddit
-This readme contains the steps for collecting E-cigarettes related posts from Twitter and Reddit.
+This readme contains the steps for collecting, filtering, and processing e-cigarettes related posts from Twitter and Reddit.
 The pipelines are based on [Falconet](README.Falconet.MD).
 
 ![Twitter](figures/twitter.png) ![Reddit](figures/reddit.png)
@@ -14,34 +14,33 @@ The pipelines are based on [Falconet](README.Falconet.MD).
 
 
 ## Instructions
-### Run pipelines
-The instructions to process the data are in `pipelines/ecigs`.
+We provided detailed instructions to process the data in the instructions to process the data are in `pipelines/ecigs`.
+We provide an overview of our system and pipelines [here](README.Falconet.MD#system-overview).
 
-- Twitter pipeline contains keywords filtering, relevance classifier, and geolocation inference, which is covered in `run_twitter_pipeline.py`.
-- Reddit pipeline contains subreddit filtering, keyword filtering, and geolocation inference.
-After running `run_reddit_pipeline.py` for subreddit and keyword filtering, follow the instructions from [SMGEO](https://github.com/kharrigian/smgeo)
-and run `run_reddit_geo.py`.
+### Pipelines
+We use seperate pipelines for Twitter and Reddit.
 
-The details of running the scripts are in [Twitter pipeline](pipelines/ecigs/README.MD#Twitter) and [Reddit pipeline](pipelines/ecigs/README.MD#Reddit) respectively.
+- Twitter pipeline involves keywords filtering, relevance classifier, and geolocation inference, which is covered in `run_twitter_pipeline.py`.
+- Reddit pipeline involves subreddit filtering, keyword filtering, and geolocation inference.
+
+We provide details of running the [Twitter pipeline](pipelines/ecigs/README.MD#Twitter) and [Reddit pipeline](pipelines/ecigs/README.MD#Reddit).
 
 ### Processed data directory
-The processed data will be in the path specified in `pipelines/ecigs/config.py`. 
+The processed data will be stored in the path specified in the [configuration file](pipelines/ecigs/config.py). 
 The details of how the outputs are organized are in [Twitter processed data directory](pipelines/ecigs/README.MD#twitter-processed-data-directory) and
 [Reddit processed data directory](pipelines/ecigs/README.MD#reddit-processed-data-directory).
 
 For each processed message, we keep the full json record with an additional `annotations` field which contains annotated information through the pipelines.
 To keep track of the annotations, the pipeline also output csv files with raw counts of posts and predefined aggregations.
-Example [here](README.Falconet.MD#system-overview).
+
 
 ### Aggregation scripts
-To help extract information from the output csv files, we provide the instructions for [Twitter](pipelines/ecigs/README.MD#twitter-aggregation-scripts) and
-[Reddit](pipelines/ecigs/README.MD#reddit-aggregation-scripts).
-These scripts aggregate all csv files in each directory, so it also works when the job is split.
-
+We provide the instructions for extracting information about the data after applying our [Twitter](pipelines/ecigs/README.MD#twitter-aggregation-scripts) and
+[Reddit](pipelines/ecigs/README.MD#reddit-aggregation-scripts) pipelines.
 
 ### Pipeline configuration details
 We try to be flexible with the pipeline configuration. 
-You could follow the instructions [here](README.Falconet.MD#creating-a-new-pipeline) to modify `pipelines/ecigs/*_pipeline.json` or 
+Either follow the instructions [here](README.Falconet.MD#creating-a-new-pipeline) to modify `pipelines/ecigs/*_pipeline.json` or 
 create your own pipeline by creating a subdirectory under `pipelines/`.
 
 For Twitter, we provide details on [keyword lists](pipelines/ecigs/README.MD#twitter-keywords-lists),
