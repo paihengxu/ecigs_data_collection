@@ -40,7 +40,7 @@ We provide the instructions for extracting information about the data after appl
 
 ### Pipeline configuration details
 We try to be flexible with the pipeline configuration. 
-Either follow the instructions [here](README.Falconet.MD#creating-a-new-pipeline) to modify `pipelines/ecigs/*_pipeline.json` or 
+Follow the instructions [here](README.Falconet.MD#creating-a-new-pipeline) to either modify `pipelines/ecigs/*_pipeline.json` or 
 create your own pipeline by creating a subdirectory under `pipelines/`.
 
 For Twitter, we provide details on [keyword lists](pipelines/ecigs/README.MD#twitter-keywords-lists),
