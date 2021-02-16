@@ -10,103 +10,47 @@ The pipelines are based on [Falconet](README.Falconet.MD).
  2.  `pip install -r requirements.txt`
  3.  Copy `python/falconet/settings/local.py.template` to `python/falconet/settings/local.py` and fill in variables.
  4.  Copy `pipelines/ecigs/config.py.template` to `pipelines/ecigs/config.py` and fill in variables.
- 5.  Following the instructions below and run the pipelines.
- 
-## Twitter
-Twitter pipeline contains keywords filtering, relevance classifier, and geolocation inference. 
-For the whole Twitter pipeline, run the following command in the `pipelines/ecigs/` directory.
+ 5.  Follow the instructions below and run the pipelines.
 
-`python run_twitter_pipeline.py --input {input_fn}` 
 
-where `{input_fn}` should be the whole path to the raw data 
-or the file name of raw data in the `TWITTER_RAW_DATA_DIR` directory specified in `pipelines/ecigs/config.py`.
- 
+## Instructions
+### Run pipelines
+The instructions to process the data are in `pipelines/ecigs`.
+
+- Twitter pipeline contains keywords filtering, relevance classifier, and geolocation inference, which is covered in `run_twitter_pipeline.py`.
+- Reddit pipeline contains subreddit filtering, keyword filtering, and geolocation inference.
+After running `run_reddit_pipeline.py` for subreddit and keyword filtering, follow the instructions from [SMGEO](https://github.com/kharrigian/smgeo)
+and run `run_reddit_geo.py`.
+
+The details of running the scripts are in [Twitter pipeline](pipelines/ecigs/README.MD#Twitter) and [Reddit pipeline](pipelines/ecigs/README.MD#Reddit) respectively.
+
 ### Processed data directory
-- Keywords filtering and geolocation inference: `{TWITTER_PROCESSED_DATA_DIR}/twitter/output_twitter_keywords/`.
-- Relevance classifier: `{TWITTER_PROCESSED_DATA_DIR}/twitter/output_twitter_relevance/`.
+The processed data will be in the path specified in `pipelines/ecigs/config.py`. 
+The details of how the outputs are organized are in [Twitter processed data directory](pipelines/ecigs/README.MD#twitter-processed-data-directory) and
+[Reddit processed data directory](pipelines/ecigs/README.MD#reddit-processed-data-directory).
 
-For each processed Tweet, we keep the full json record with an additional `annotations` field 
-including `keywords`, `location` and `label-relevance` 
-(`1` for relevant, `0` for irrelevant, `None` for dropped low confidence examples).
+For each processed message, we keep the full json record with an additional `annotations` field which contains annotated information through the pipelines.
+To keep track of the annotations, the pipeline also output csv files with raw counts of posts and predefined aggregations.
+Example [here](README.Falconet.MD#system-overview).
 
-To keep track of the annotations, the pipeline also output csv files with raw counts of posts and predefined aggregations in the above-listed directories.
-Additionally, there is another csv file that counts the mentioning times of each keywords per day for Tweets classified as relevant,
-in the `{TWITTER_PROCESSED_DATA_DIR}/twitter/output_twitter_relevance/keywords_count/` directory. 
-
-To help extract information from the output csv files, we provide the instructions for relevant scripts [here](pipelines/ecigs/README.MD#twitter-aggregation-scripts) (in `pipelines/ecigs`).
+### Aggregation scripts
+To help extract information from the output csv files, we provide the instructions for [Twitter](pipelines/ecigs/README.MD#twitter-aggregation-scripts) and
+[Reddit](pipelines/ecigs/README.MD#reddit-aggregation-scripts).
 These scripts aggregate all csv files in each directory, so it also works when the job is split.
 
- 
-### Keywords lists
-1. [Bigger keyword list](python/falconet/resources/annotators/keywords/ENDS.keywords):
-  - extract all tweets that contain the master list of 611 unique [seed brands](python/falconet/resources/annotators/keywords/ecigs_brands.keywords) 
-  and 23 [manually defined e-cig keywords](python/falconet/resources/annotators/keywords/ecig.keywords).
-2. [Conservative keyword list](python/falconet/resources/annotators/keywords/ENDS_refined.keywords): 
-  - extract all tweets that contain the master list of 480 unique seed brands and 23 manually defined e-cig keywords.
 
-The conservative keyword list is used in the pipeline.
- 
- 
-### Different relevance classifier threshold
-We provide multiple relevance classifiers with different thresholds for dropping low confidence examples, located in `models`.
-The performances for each best model on the test set are listed [here](models/README.MD).
+### Pipeline configuration details
+We try to be flexible with the pipeline configuration. 
+You could follow the instructions [here](README.Falconet.MD#creating-a-new-pipeline) to modify `pipelines/ecigs/*_pipeline.json` or 
+create your own pipeline by creating a subdirectory under `pipelines/`.
 
-The default model is `models/smokeng_tobacco_relevance_DEP-relevance_DROPPED-0.25_NGRAM-(1,2)_BETA-0.5_EMB-50.pickle`,
-as specified in `pipelines/ecigs/twitter_relevance_pipeline.json`. 
-To switch to another model, change the corresponding argument of `classifier` in the `pipelines` field 
-such as `maxpropdropped`, `embeddingdim` accordingly.
- 
-### Training relevance classifier
-We provide the [Smokeng dataset](pipelines/ecigs/smokeng/smokeng_tobacco_relevance.json.gz) 
-and the [script](pipelines/ecigs/smokeng/tobacco_relevance_trainer.sh) to train the relevance classifier.
-The details for training classifier with Falconet can be found [here](README.Falconet.MD#training-models). 
- 
-## Reddit
-Reddit pipeline contains subreddit filtering, keywords filtering, and geolocation inference.
-To speed up the processing, we use grep-family commands to pre-filter with subreddits, 
-which supports compressed files in the following format: `.gz, .xz, .bz2, and .zst`.
+For Twitter, we provide details on [keyword lists](pipelines/ecigs/README.MD#twitter-keywords-lists),
+[tobacco relevance classifiers](pipelines/ecigs/README.MD#different-relevance-classifier-threshold) and 
+[how to train the classifiers](pipelines/ecigs/README.MD#training-relevance-classifier).
 
-For subreddit filtering and keywords filtering, run the following command in the `pipelines/ecigs/` directory.
-  
-  `python run_reddit_pipeline.py --input {input_fn} --reddit-type {reddit_type}`
-  
-where
+For Reddit, we provide details on [keyword lists](pipelines/ecigs/README.MD#reddit-keywords-list), 
+[relevant Subreddits](pipelines/ecigs/README.MD#subreddits-list) and 
+[Reddit raw data retrieval](pipelines/ecigs/README.MD#retrieving-reddit-raw-data).
 
-- input_fn: same as Twitter.
-- reddit-type: `submission` or `comment`.
-
-### Geolocation inference
-First, follow the instructions from [smgeo](https://github.com/kharrigian/smgeo) to set up the virtual environment and models.
-The relevant paths should be consistent with the ones you set up in `pipelines/ecigs/config.py`.
-
-Then run `python run_reddit_geo.py` (in `pipelines/ecigs`) to infer the geolocation information of users who has posted comments or submissions 
-with ecigs keywords in relevant subreddits.
-A list of Reddit user can be found at `{REDDIT_PROCESSED_DATA_DIR}/reddit_authors.txt`.
-The inferred geolocation information is at `{SMGEO_OUT_FN}`.
-
-   
-### Processed data directory
-Similar to Twitter, there are also csv files with raw counts of posts in the following directories.
-
-- Subreddit filtering: `{REDDIT_PROCESSED_DATA_DIR}/reddit/reddit_{reddit_type}/output_reddit_subreddit/`.
-- Keywords filtering: `{REDDIT_PROCESSED_DATA_DIR}/reddit/reddit_{reddit_type}/output_reddit_keywords/`.
-    - In its subdirectory `keywords_count`, there is a csv file that counts the mentioning times of each keywords per day.
-
-where `{reddit_type}` is `submission` or `comment`.
-
-Similar to the Twitter pipeline, we provide the instructions for relevant scripts 
-[here](pipelines/ecigs/README.MD#reddit-aggregation-scripts) (in `pipelines/ecigs`)
-to produce aggregated summaries of output counting csv files.
-
-  
-### Subreddits list
-A full list of relevant subreddits is [here](python/falconet/resources/annotators/subreddits/tobacco/e-cigs.txt).
-
- 
-### keywords list
-Same as Twitter.
-
-### Retrieving Reddit raw data
-[Here](scripts/retrieve_reddit_data.py) is a script to retrieve Reddit data using [Retriever](https://github.com/kharrigian/retriever). 
 
 ## Contact
