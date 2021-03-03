@@ -11,3 +11,5 @@ scikit-learn>=0.18.1
 requests_oauthlib>=0.6.2
 emoji>=0.5.4
 flashtext
+seaborn
+matplotlib
