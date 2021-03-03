@@ -53,3 +53,4 @@ For Reddit, we provide details on [keyword lists](pipelines/ecigs/README.MD#redd
 
 
 ## Contact
+Mark Dredze (mdredze at cs.jhu.edu)
