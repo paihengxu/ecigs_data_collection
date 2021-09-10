@@ -142,7 +142,7 @@ Similar to Twitter, here are the scripts to help extract information from the ou
         - `reddit_{reddit_type}_keywords_us_month.csv`: counts # of Reddit posts whose authors are in U.S. over month.
 
 ### Retrieving Reddit raw data
-[Here](scripts/retrieve_reddit_data.py) is a script to retrieve Reddit data using [Retriever](https://github.com/kharrigian/retriever). 
+[Here](retrieve_reddit_data.py) is a script to retrieve Reddit data using [Retriever](https://github.com/kharrigian/retriever). 
 
 ### Pipeline configuration details:
 `reddit_subreddit_pipeline.json` and `reddit_keywords_pipeline.json`: pipeline configuration json files for Reddit.
