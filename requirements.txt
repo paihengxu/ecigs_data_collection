@@ -13,3 +13,4 @@ emoji>=0.5.4
 flashtext
 seaborn
 matplotlib
+git+git://github.com/kharrigian/retriever.git#egg=retriever
